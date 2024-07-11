@@ -33,9 +33,11 @@ namespace ToDoList.Domain.Tasks.Factories
             {
                 entityList = await _listRepository.GetByIdAsync(request.ListId);
                 entity.AddList(entityList);
+                entity.ChangeStatus(WorkflowStatus.TODO);
+
             }
 
-            entity.Change(request.Title, entity.URL, request.Description);
+            entity.Change(request.Title, request.URL, request.Description);
             entity.AddPeriod(request.StartAt, request.EndAt);
             entity.Validate();
             return entity;

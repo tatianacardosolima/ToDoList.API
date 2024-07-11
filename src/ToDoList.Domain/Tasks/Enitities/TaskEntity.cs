@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
+using ToDoList.Domain.Lists;
 using ToDoList.Domain.Lists.Entities;
+using ToDoList.Domain.Tasks.Exceptions;
 using ToDoList.Domain.Tasks.Responses;
 using ToDoList.Shared.Abstractions;
+using ToDoList.Shared.Records;
+using static ToDoList.Shared.Helpers.ErroCodeHelper;
 
 namespace ToDoList.Domain.Tasks.Enitities
 {
@@ -71,8 +71,8 @@ namespace ToDoList.Domain.Tasks.Enitities
 
         public void ChangeStatus(WorkflowStatus status)
         {
-            if (Status == status)
-                throw new Exception();
+            //if (Status == status)
+            //    throw new Exception();
 
             Status = status;
         }
@@ -102,7 +102,50 @@ namespace ToDoList.Domain.Tasks.Enitities
 
         public override bool Validate()
         {
-            throw new NotImplementedException();
+            var validator = new TaskValidator();
+            var validation = validator.Validate(this);
+            if (!validation.IsValid)
+            {
+                foreach (var error in validation.Errors)
+                    _errors.Add(new ErrorRecord(
+                        error.ErrorCode == null ? error.ErrorMessage : error.ErrorCode
+                        , error.ErrorMessage));
+                throw new TaskException(_errors);
+            }
+            return true;
+        }
+
+        private class TaskValidator : AbstractValidator<TaskEntity>
+        {
+
+            public TaskValidator()
+            {
+
+                RuleFor(x => x.Title).NotEmpty().WithErrorCode(ERROR_TASK_TITLE_001);
+                RuleFor(x => x.Title).MaximumLength(120).WithErrorCode(ERROR_TASK_TITLE_002);
+                RuleFor(x => x.Description).MaximumLength(500).WithErrorCode(ERROR_TASK_DESCRIPTION_003);
+                RuleFor(x => x.URL).MaximumLength(2083).WithErrorCode(ERROR_TASK_URL_004);
+                RuleFor(x => x.Status).NotNull().WithErrorCode(ERROR_TASK_URL_004);
+                RuleFor(x => new { StartAt = x.StartAt, EndAt = x.EndAt })
+                    .Custom((value, context) =>
+                    {
+                        if (value.StartAt != null 
+                                && value.StartAt.GetValueOrDefault() < DateTime.UtcNow )
+                            context.AddFailure(ERROR_TASK_STARTAT_006);
+
+                        if (value.EndAt != null
+                                && value.EndAt.GetValueOrDefault() < DateTime.UtcNow)
+                            context.AddFailure(ERROR_TASK_ENDAT_007);
+
+                        if (value.StartAt != null && value.EndAt != null
+                                && value.EndAt.GetValueOrDefault() < value.StartAt.GetValueOrDefault())
+                            context.AddFailure(ERROR_TASK_STARTENDAT_008);
+                    });
+
+
+
+            }
+
         }
     }
 }
