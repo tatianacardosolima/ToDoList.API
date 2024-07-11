@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace ToDoList.Infrastructure.Write.Mappings
     {
         public override void Configure(EntityTypeBuilder<ListEntity> builder)
         {
+            builder.ToTable("List");
             base.Configure(builder);
             builder.Property(x => x.Name).IsRequired(true).HasMaxLength(120);
             

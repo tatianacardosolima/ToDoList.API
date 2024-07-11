@@ -12,8 +12,8 @@ using ToDoList.Infrastructure.Write.Contexts;
 namespace ToDoList.Infrastructure.Write.Migrations
 {
     [DbContext(typeof(TodoListContext))]
-    [Migration("20240711111245_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240711185836_Initial-Migration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,7 +55,7 @@ namespace ToDoList.Infrastructure.Write.Migrations
 
                     b.HasIndex("TaskId");
 
-                    b.ToTable("Checklist");
+                    b.ToTable("Checklist", (string)null);
                 });
 
             modelBuilder.Entity("ToDoList.Domain.Lists.Entities.ListEntity", b =>
@@ -80,7 +80,7 @@ namespace ToDoList.Infrastructure.Write.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("List");
+                    b.ToTable("List", (string)null);
                 });
 
             modelBuilder.Entity("ToDoList.Domain.Tasks.Enitities.TaskEntity", b =>
@@ -127,7 +127,7 @@ namespace ToDoList.Infrastructure.Write.Migrations
 
                     b.HasIndex("ListId");
 
-                    b.ToTable("Task");
+                    b.ToTable("Task", (string)null);
                 });
 
             modelBuilder.Entity("ToDoList.Domain.Checklists.Entities.ChecklistEntity", b =>
