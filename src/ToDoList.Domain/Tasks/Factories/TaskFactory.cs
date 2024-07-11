@@ -37,7 +37,7 @@ namespace ToDoList.Domain.Tasks.Factories
 
             entity.Change(request.Title, entity.URL, request.Description);
             entity.AddPeriod(request.StartAt, request.EndAt);
-            
+            entity.Validate();
             return entity;
         }
     }

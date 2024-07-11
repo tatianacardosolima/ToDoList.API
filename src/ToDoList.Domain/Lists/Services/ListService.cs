@@ -15,7 +15,7 @@ using ToDoList.Shared.Interfaces;
 namespace ToDoList.Domain.Lists.Services
 {
     public class ListService : ServiceBase<ListEntity,
-            IdNameListRequest,  ListResponse>, IListService
+            UpdListRequest,  ListResponse>, IListService
     {
         public ListService(IListRepository repository, 
                            IListFactory factory) 

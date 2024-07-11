@@ -3,9 +3,13 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-	  <NoWarn>CS8618</NoWarn>
+    <Nullable>enable</Nullable>	  
+	  <NoWarn>CS8601;CS8602;CS8604;CS8618</NoWarn>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.8.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ToDoList.Shared\ToDoList.Shared.csproj" />

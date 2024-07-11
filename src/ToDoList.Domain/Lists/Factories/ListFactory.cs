@@ -12,9 +12,9 @@ using ToDoList.Shared.Interfaces;
 
 namespace ToDoList.Domain.Lists.Factories
 {
-    public interface IListFactory : IFactory<IdNameListRequest,ListEntity>
+    public interface IListFactory : IFactory<UpdListRequest,ListEntity>
     {
-        Task<ListEntity> CreateAsync(IdNameListRequest request);
+        Task<ListEntity> CreateAsync(UpdListRequest request);
     }
     public class ListFactory : IListFactory
     {
@@ -24,9 +24,10 @@ namespace ToDoList.Domain.Lists.Factories
         {
             _listRepository = listRepository;
         }
-        public async Task<ListEntity> CreateAsync(IdNameListRequest request)
+        public async Task<ListEntity> CreateAsync(UpdListRequest request)
         {
             var entity = new ListEntity(request.Name);
+            entity.Validate();
             var exist = await _listRepository.ExistsAsync(x => x.Name.Equals(request.Name));
             DomainException.ThrowWhen(exist, "O nome da lista já existe no sistema");
             return entity;

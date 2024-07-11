@@ -11,7 +11,7 @@ namespace ToDoList.API.Endpoints.Lists
         {
             app.MapPost("/lists", async (NewListRequest request, IListService service) =>
             {
-                var newReqest = new IdNameListRequest(request.Name);                
+                var newReqest = new UpdListRequest(request.Name);                
 
                 var response = await service.InsertAsync(newReqest);
                 //return Results.Created($"/lists/{response.Data.Id}", response);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoList.Shared.Interfaces;
+using ToDoList.Shared.Records;
 
 namespace ToDoList.Shared.Abstractions
 {
@@ -34,5 +35,9 @@ namespace ToDoList.Shared.Abstractions
         }
 
         public abstract ResponseBase GetResponse();
+
+        protected List<ErrorRecord> _errors = new List<ErrorRecord>();
+        public IReadOnlyCollection<ErrorRecord> Errors => _errors;
+        public abstract bool Validate();
     }
 }

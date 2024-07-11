@@ -6,7 +6,7 @@ using ToDoList.Shared.Interfaces;
 namespace ToDoList.Domain.Lists.Interfaces
 {
     public interface IListService : IService<ListEntity,
-            IdNameListRequest, ListResponse>
+            UpdListRequest, ListResponse>
     {
         
     }

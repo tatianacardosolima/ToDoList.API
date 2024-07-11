@@ -11,7 +11,7 @@ namespace ToDoList.API.Endpoints.Lists
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapPut("/lists", async (IdNameListRequest request, IListService service) =>
+            app.MapPut("/lists", async (UpdListRequest request, IListService service) =>
             {
              
                 var response = await service.UpdateAsync(request);                

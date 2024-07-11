@@ -44,5 +44,10 @@ namespace ToDoList.Domain.Checklists.Entities
                 Item = Item
             };
         }
+
+        public override bool Validate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

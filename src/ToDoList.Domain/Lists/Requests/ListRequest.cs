@@ -16,13 +16,17 @@ namespace ToDoList.Domain.Lists.Requests
     {        
     }
 
-    public class IdNameListRequest : ListRequest, IRequest
+    public class UpdListRequest : ListRequest, IRequest
     {
-        public IdNameListRequest(string name)
+        public UpdListRequest()
+        {
+            
+        }
+        public UpdListRequest(string name)
         {
             Name = name;
         }
-        public IdNameListRequest(Guid id, string name)
+        public UpdListRequest(Guid id, string name)
         {
             Id = id;
             Name = name;

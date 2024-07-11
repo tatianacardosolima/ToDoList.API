@@ -35,7 +35,7 @@ namespace ToDoList.Domain.Checklists.Factories
                 var entityTask = await _taskRepository.GetByIdAsync(request.TaskId);
                 entity = new ChecklistEntity(entityTask, request.Item);
             }
-
+            entity.Validate();
             return entity;
         }
     }

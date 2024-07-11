@@ -99,5 +99,10 @@ namespace ToDoList.Domain.Tasks.Enitities
 
             };
         }
+
+        public override bool Validate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
