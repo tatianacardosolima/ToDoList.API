@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +37,9 @@ namespace ToDoList.Shared.Abstractions
 
         public abstract ResponseBase GetResponse();
 
+        [NotMapped]
         protected List<ErrorRecord> _errors = new List<ErrorRecord>();
+        [NotMapped]
         public IReadOnlyCollection<ErrorRecord> Errors => _errors;
         public abstract bool Validate();
     }

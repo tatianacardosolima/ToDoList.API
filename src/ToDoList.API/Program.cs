@@ -22,3 +22,8 @@ app.UseHttpsRedirection();
 
 
 app.Run();
+// usado para testes de integração
+public partial class Program
+{
+    protected Program() { }
+}
