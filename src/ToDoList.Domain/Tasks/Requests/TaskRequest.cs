@@ -28,4 +28,10 @@ namespace ToDoList.Domain.Tasks.Requests
     {
         public Guid Id { get; set; }
     }
+
+    public class UpdChangeStatusRequest : IRequest
+    {
+        public Guid Id { get; set; }
+        public WorkflowStatus Status { get; set; }
+    }
 }
