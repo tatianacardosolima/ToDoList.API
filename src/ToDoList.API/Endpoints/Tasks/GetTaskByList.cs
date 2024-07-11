@@ -4,6 +4,7 @@ using System.Reflection;
 using ToDoList.Domain.Lists.Interfaces;
 using ToDoList.Domain.Lists.Requests;
 using ToDoList.Domain.Tasks.Interfaces;
+using ToDoList.Domain.TodoList.Interfaces;
 using ToDoList.Shared.Responses;
 
 namespace ToDoList.API.Endpoints.Tasks
@@ -12,10 +13,10 @@ namespace ToDoList.API.Endpoints.Tasks
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapGet("/list/{listid}/tasks", async (Guid listid, ITaskService service) =>
+            app.MapGet("/list/{listid}/tasks", async (Guid listid, IToDoListService service) =>
             {
              
-                var response = await service.GetByListAsync(listid);
+                var response = await service.GetTasksByListAsync(listid);
                 return Results.Ok(response);
             })
         .WithName("GetTaskByList")

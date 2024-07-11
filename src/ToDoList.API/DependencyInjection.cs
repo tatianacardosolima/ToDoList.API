@@ -12,6 +12,12 @@ using ToDoList.Infrastructure.Write.Repositories;
 using ToDoList.Domain.Checklists.Interfaces;
 using ToDoList.Domain.Checklists.Factories;
 using ToDoList.Domain.Checklists.Services;
+using System.Data;
+using System.Data.SqlClient;
+using ToDoList.Domain.TodoList.Interfaces;
+using TodoList.Infrastructure.Read.Providers;
+using ToDoList.Domain.TodoList.Services;
+using Npgsql;
 
 namespace ToDoList.API
 {
@@ -19,6 +25,11 @@ namespace ToDoList.API
     {
         public static IServiceCollection AddTodoListDependency(this IServiceCollection services, IConfiguration configuration)
         {
+            
+            services.AddScoped<IDbConnection>(sp =>
+                    new NpgsqlConnection(configuration["ConnectionStrings:Postgres"]));
+
+
             services.AddScoped(serviceProvider =>
             {
                 var connectionString = configuration["ConnectionStrings:Postgres"];
@@ -30,6 +41,10 @@ namespace ToDoList.API
                 var context = new TodoListContext(options, userLoggedInfo);
                 return context;
             });
+
+            services.AddScoped<ITodoListProvider, TodoListProvider>();
+            services.AddScoped<IToDoListService, TodoListService>();
+
             services.AddScoped<IChecklistRepository, ChecklistRepository>();
             services.AddScoped<IChecklistFactory, ChecklistFactory>();
             services.AddScoped<IChecklistService, ChecklistService>();

@@ -51,11 +51,14 @@ namespace ToDoList.Domain.Tasks.Enitities
             URL = url;
             Description = description;
             Status = WorkflowStatus.TODO;
-            ModifiedAt = DateTime.Now;
+            
         }
 
         public void AddPeriod(DateTime? startAt, DateTime? endAt)
-        { 
+        {
+            if (startAt != null) startAt = DateTime.SpecifyKind(startAt.GetValueOrDefault(), DateTimeKind.Utc);
+            if (endAt != null) startAt = DateTime.SpecifyKind(endAt.GetValueOrDefault(), DateTimeKind.Utc);
+
             StartAt = startAt;
             EndAt = endAt;
         }

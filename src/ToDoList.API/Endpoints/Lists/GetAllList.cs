@@ -3,18 +3,19 @@ using Microsoft.AspNetCore.Hosting.Server;
 using System.Reflection;
 using ToDoList.Domain.Lists.Interfaces;
 using ToDoList.Domain.Lists.Requests;
+using ToDoList.Domain.TodoList.Interfaces;
 using ToDoList.Shared.Responses;
 
 namespace ToDoList.API.Endpoints.Lists
 {
-    public class GetListById : ICarterModule
+    public class GetAllList : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapGet("/lists/{id}", async (Guid id, IListService service) =>
+            app.MapGet("/lists", async (IToDoListService service) =>
             {
              
-                var response = await service.GetByIdAsync(id);
+                var response = await service.GetAll();
                 return Results.Ok(response);
             })
         .WithName("GetListById")

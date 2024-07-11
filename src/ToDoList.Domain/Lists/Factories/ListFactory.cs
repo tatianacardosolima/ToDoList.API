@@ -27,6 +27,11 @@ namespace ToDoList.Domain.Lists.Factories
         public async Task<ListEntity> CreateAsync(UpdListRequest request)
         {
             var entity = new ListEntity(request.Name);
+            if (request.Id != null && request.Id != Guid.Empty)
+            { 
+                entity = await _listRepository.GetByIdAsync(request.Id);
+                entity.ChangeName(request.Name);
+            }
             entity.Validate();
             var exist = await _listRepository.ExistsAsync(x => x.Name.Equals(request.Name));
             DomainException.ThrowWhen(exist, "O nome da lista já existe no sistema");
