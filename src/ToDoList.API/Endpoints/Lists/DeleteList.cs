@@ -21,7 +21,8 @@ namespace ToDoList.API.Endpoints.Lists
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .ProducesProblem(StatusCodes.Status404NotFound)
         .WithSummary("Excluir uma lista para organizar as tarefas")
-        .WithDescription("Excluir Lista");
+        .WithDescription("Excluir Lista")
+        .WithTags("List");
         }
     }
 }

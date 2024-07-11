@@ -22,7 +22,8 @@ namespace ToDoList.API.Endpoints.Tasks
         .Produces<DefaultResponse>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithSummary("Busca a tarefa por id")
-        .WithDescription("Buscar tarefa");
+        .WithDescription("Buscar tarefa")
+        .WithTags("Task");
         }
     }
 }

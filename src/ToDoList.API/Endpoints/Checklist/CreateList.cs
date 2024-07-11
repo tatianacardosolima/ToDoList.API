@@ -28,7 +28,8 @@ namespace ToDoList.API.Endpoints.Checklist
         .Produces<DefaultResponse>(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithSummary("Criar uma nova lista para organizar as tarefas")
-        .WithDescription("Criar Checklist");
+        .WithDescription("Criar Checklist")
+        .WithTags("Checklist"); ;
         }
     }
 }

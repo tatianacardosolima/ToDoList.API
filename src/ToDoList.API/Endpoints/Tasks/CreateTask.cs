@@ -35,7 +35,8 @@ namespace ToDoList.API.Endpoints.Tasks
         .Produces<DefaultResponse>(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithSummary("Criar uma nova lista para organizar as tarefas")
-        .WithDescription("Criar Lista");
+        .WithDescription("Criar Task")
+        .WithTags("Task");
         }
     }
 }
