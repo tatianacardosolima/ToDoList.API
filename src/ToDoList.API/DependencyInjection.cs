@@ -17,13 +17,13 @@ namespace ToDoList.API
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddTodoListDependency(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped(serviceProvider =>
             {
-                var connectionString = configuration["ConnectionStrings:SQLServer"];
+                var connectionString = configuration["ConnectionStrings:Postgres"];
                 var options = new DbContextOptionsBuilder<TodoListContext>()                    
-                    .UseSqlServer(connectionString)
+                    .UseNpgsql(connectionString)
                     .Options;
 
                 var userLoggedInfo = "1"; // Capturar o usuário logado através do Token
