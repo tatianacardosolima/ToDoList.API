@@ -41,7 +41,7 @@ services:
       - "5005:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
-      ConnectionStrings__DefaultConnection: "Host=db;Database=todolistdb;Username=admin;Password=Admin*123"
+      ConnectionStrings__Postgres: "Host=host.docker.internal;Database=todolistdb;Username=admin;Password=Admin*123"
     depends_on:
       - db
     links:
