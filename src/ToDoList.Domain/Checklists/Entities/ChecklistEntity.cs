@@ -19,6 +19,7 @@ namespace ToDoList.Domain.Checklists.Entities
             Task = task;
             Item = item;
         }
+
         public TaskEntity Task { get; set; }
         public string Item { get; set; }
         public bool Check { get; private set; } = false;
@@ -33,6 +34,10 @@ namespace ToDoList.Domain.Checklists.Entities
         public void NotDone()
         {
             Check = false;
+        }
+        public void ChangeItem(string item)
+        { 
+            Item = item;
         }
 
         public override ChecklistResponse GetResponse()

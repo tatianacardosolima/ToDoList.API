@@ -18,8 +18,8 @@ namespace ToDoList.API.Endpoints.Checklist
         .WithName("UpdateChecklist")
         .Produces<DefaultResponse>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status400BadRequest)
-        .WithSummary("Atualiza a lista")
-        .WithDescription("Atualizar Lista")
+        .WithSummary("Atualiza o checklist")
+        .WithDescription("Atualizar Checklist")
         .WithTags("Checklist");
         }
     }

@@ -29,6 +29,7 @@ namespace ToDoList.Domain.Checklists.Factories
             if (request.Id != null && request.Id != Guid.Empty)
             {
                 entity = await _repository.GetByIdAsync(request.Id);
+                entity.ChangeItem(request.Item);
             }
             else 
             {
