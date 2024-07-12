@@ -47,7 +47,7 @@ namespace ToDoList.Domain.Checklists.Entities
 
         public override bool Validate()
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }
