@@ -21,6 +21,7 @@ namespace ToDoList.API.Endpoints.Lists
         .WithName("UpdateTask")
         .Produces<DefaultResponse>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status400BadRequest)
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithSummary("Atualiza a lista")
         .WithDescription("Atualizar Lista")
         .WithTags("Task");

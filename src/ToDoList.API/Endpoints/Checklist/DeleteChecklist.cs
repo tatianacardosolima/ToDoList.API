@@ -21,6 +21,7 @@ namespace ToDoList.API.Endpoints.Checklist
         .Produces<DefaultResponse>(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .ProducesProblem(StatusCodes.Status404NotFound)
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithSummary("Excluir uma lista para organizar as tarefas")
         .WithDescription("Excluir Lista")
         .WithTags("Checklist"); 

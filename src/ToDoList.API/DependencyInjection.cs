@@ -58,11 +58,7 @@ namespace ToDoList.API
             services.AddScoped<IListService, ListService>();
             
             services.AddCarter();
-            
-            //services.AddExceptionHandler<CustomExceptionHandler>();
-            //services.AddHealthChecks()
-            //    .AddSqlServer(configuration.GetConnectionString("Database")!);
-
+                        
             return services;
         }
 

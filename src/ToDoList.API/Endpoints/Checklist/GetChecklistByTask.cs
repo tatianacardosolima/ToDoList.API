@@ -22,6 +22,7 @@ namespace ToDoList.API.Endpoints.Checklist
         .WithGroupName("checklists")
         .Produces<DefaultResponse>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status400BadRequest)
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithSummary("Busca a lista por id")
         .WithDescription("Atualizar Lista")
         .WithTags("Checklist"); 
