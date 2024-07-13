@@ -1,3 +1,4 @@
+using Prometheus;
 using ToDoList.API;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +19,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMetricServer();
+app.UseHttpMetrics();
 app.UseHttpsRedirection();
+
 
 
 app.Run();

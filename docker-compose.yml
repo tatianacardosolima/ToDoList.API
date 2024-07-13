@@ -35,7 +35,7 @@ services:
     build:
       context: .
       dockerfile: src/ToDoList.API/Dockerfile
-    container_name: dotnet_app
+    container_name: todolist_app
     restart: always
     ports:
       - "5005:8080"
