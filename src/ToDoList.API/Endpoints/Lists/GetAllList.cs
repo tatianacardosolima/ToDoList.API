@@ -21,6 +21,8 @@ namespace ToDoList.API.Endpoints.Lists
         .WithName("GetListById")
         .Produces<DefaultResponse>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status400BadRequest)
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
+        .ProducesProblem(StatusCodes.Status404NotFound)
         .WithSummary("Busca a lista por id")
         .WithDescription("Atualizar Lista")
         .WithTags("List");

@@ -22,6 +22,7 @@ namespace ToDoList.API.Endpoints.Tasks
         .WithName("GetTaskByList")
         .Produces<DefaultResponse>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status400BadRequest)
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithSummary("Busca tarefas por lista")
         .WithDescription("Get tasks by list ")
         .WithTags("Task");

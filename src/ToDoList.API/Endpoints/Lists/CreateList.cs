@@ -20,6 +20,7 @@ namespace ToDoList.API.Endpoints.Lists
         .WithName("CreateList")
         .Produces<DefaultResponse>(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status400BadRequest)
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithSummary("Criar uma nova lista para organizar as tarefas")
         .WithDescription("Criar Lista")
         .WithTags("List"); 
