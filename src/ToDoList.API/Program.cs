@@ -1,5 +1,7 @@
+using Commom.Logging;
 using Microsoft.AspNetCore.Diagnostics;
 using Prometheus;
+using Serilog;
 using System.Net;
 using ToDoList.API;
 using ToDoList.API.Middlewares;
@@ -13,6 +15,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Host.UseSerilog(SeriLogger.Configure);
+
 builder.Services.AddTodoListDependency(builder.Configuration);
 var app = builder.Build();
 

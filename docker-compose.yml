@@ -77,9 +77,21 @@ services:
     depends_on:
       - prometheus
 
+  # #Elasticsearch
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+    container_name: elasticsearch
+    restart: always
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
 networks:
   monitoring:
 
 volumes:
   grafana-storage:
-
+  esdata:
+    driver: local
