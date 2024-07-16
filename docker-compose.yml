@@ -42,6 +42,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       ConnectionStrings__Postgres: "Host=host.docker.internal;Database=todolistdb;Username=admin;Password=Admin*123"
+      ElasticConfiguration__Uri: "http://host.docker.internal:9200"
     depends_on:
       - db
     links:
@@ -79,12 +80,15 @@ services:
 
   # #Elasticsearch
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.1
     container_name: elasticsearch
     restart: always
     ports:
       - "9200:9200"
       - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
     volumes:
       - esdata:/usr/share/elasticsearch/data
 
@@ -93,5 +97,4 @@ networks:
 
 volumes:
   grafana-storage:
-  esdata:
-    driver: local
+  esdata:    
