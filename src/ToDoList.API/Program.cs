@@ -49,6 +49,13 @@ app.UseExceptionHandler(configure =>
         IExceptionHandlerPathFeature? exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
         if (exceptionHandlerPathFeature?.Error is not null)
         {
+            Log.Error("Erro inesperado no TODOLIST", new
+            {
+                request = context.Request.Body,
+                error = exceptionHandlerPathFeature.Error
+
+            });
+
             int statusCode = (int)HttpStatusCode.InternalServerError;
             string errorMessage = exceptionHandlerPathFeature.Error.Message;
             if (exceptionHandlerPathFeature?.Error is DomainException)
