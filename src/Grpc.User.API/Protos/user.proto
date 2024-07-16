@@ -1,0 +1,35 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Grpc.Users.API";
+
+package user;
+
+// The User service definition.
+service User {
+  // Sends a greeting
+  rpc Save (SaveUserRequest) returns (SaveUserResponse);
+  rpc GetById (GetUserByIdRequest) returns (GetUserByIdResponse);
+}
+
+// The request message containing the user's details.
+message SaveUserRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+}
+
+// The response message containing the status of the save operation.
+message SaveUserResponse {
+  bool success = 1;
+  string message = 2;
+  string id = 3;
+}
+
+// The request message containing the user's ID.
+message GetUserByIdRequest {
+  string id = 1;
+}
+message GetUserByIdResponse {
+  string name = 1;
+  string email = 2;
+}
