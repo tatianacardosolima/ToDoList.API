@@ -1,0 +1,6 @@
+@ToDoList.Aggregator_HostAddress = http://localhost:5187
+
+GET {{ToDoList.Aggregator_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -21,7 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ToDoList.API\ToDoList.API.csproj" />
     <ProjectReference Include="..\ToDoList.Domain\ToDoList.Domain.csproj" />
-    <ProjectReference Include="..\ToDoList.Shared\ToDoList.Shared.csproj" />
+    <ProjectReference Include="..\ToDoList.Shared\Common.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
