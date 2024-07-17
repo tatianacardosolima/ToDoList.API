@@ -1,6 +1,18 @@
 version: '3.8'
 
 services:
+  # Sql Server
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      - SA_PASSWORD=Admin*123
+      - ACCEPT_EULA=Y
+    ports:
+      - "5002:1433"
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+
   # PostgreSQL Database
   db:
     image: postgres:latest
@@ -42,6 +54,26 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       ConnectionStrings__Postgres: "Host=host.docker.internal;Database=todolistdb;Username=admin;Password=Admin*123"
+      ElasticConfiguration__Uri: "http://host.docker.internal:9200"
+    depends_on:
+      - db
+    links:
+      - db
+    networks:
+      - monitoring
+
+  # .API TODO LIST
+  grpc-web-api-user:
+    build:
+      context: .
+      dockerfile: src/Grpc.User.API/Dockerfile
+    container_name: grpc_user_app
+    restart: always
+    ports:
+      - "5003:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__Sql: "Host=host.docker.internal;Database=todolistdb;Username=sa;Password=Admin*123"
       ElasticConfiguration__Uri: "http://host.docker.internal:9200"
     depends_on:
       - db
@@ -96,5 +128,6 @@ networks:
   monitoring:
 
 volumes:
+  sqlserverdata:
   grafana-storage:
   esdata:    
