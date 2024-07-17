@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\BuildingBlocks\Commom.Logging\Common.Logging.csproj" />
-    <ProjectReference Include="..\..\ToDoList.Shared\Common.Shared.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\Common.Shared\Common.Shared.csproj" />
   </ItemGroup>
 
     <ItemGroup>
