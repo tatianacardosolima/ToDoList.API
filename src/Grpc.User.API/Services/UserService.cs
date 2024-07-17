@@ -1,32 +1,46 @@
-﻿using Grpc.Core;
+﻿using AutoMapper;
+using Grpc.Core;
+using Grpc.Users.API.Entities;
+using Grpc.Users.API.Repositories;
 
 namespace Grpc.Users.API.Services
 {
     public class UserService  : User.UserBase
     {
         private readonly ILogger<UserService> _logger;
-        public UserService(ILogger<UserService> logger)
+        private readonly IUserRepository _repository;
+        private readonly IMapper _mapper;
+
+        public UserService(ILogger<UserService> logger, IUserRepository repository, IMapper mapper)
         {
             _logger = logger;
+            _repository = repository;
+            _mapper = mapper;
         }
 
-        public override Task<SaveUserResponse> Save(SaveUserRequest request, ServerCallContext context)
+        public override async Task<SaveUserResponse> Save(SaveUserRequest request, ServerCallContext context)
         {
-            return Task.FromResult(new SaveUserResponse
+            var entity = _mapper.Map<UserEntity>(request);
+            //entity.Id = Guid.NewGuid();
+            //entity.CreateAt = DateTime.Now;
+            await _repository.InsertAsync(entity);
+            return new SaveUserResponse()
             {
-                Id = "1",
-                Message = "Usuário salvo com sucesso",
-                Success = true
-            });
+                Success = true,
+                Message = "Usuário inserido com sucesso",
+                Id = entity.Id.ToString()
+            };
         }
 
-        public override Task<GetUserByIdResponse> GetById(GetUserByIdRequest request, ServerCallContext context)
+        public override async Task<GetUserByIdResponse> GetById(GetUserByIdRequest request, ServerCallContext context)
         {
-            return Task.FromResult(new GetUserByIdResponse
+            var entity = await _repository.GetByIdAsync(Guid.Parse(request.Id));
+            return new GetUserByIdResponse
             {
-                Email = "tatiana@lima.com",
-                Name = "tatiana lima"
-            });
+                Email = entity.Email,
+                Name = entity.Name,
+                Id = entity.Id.ToString()
+            };
         }
     }
 }
