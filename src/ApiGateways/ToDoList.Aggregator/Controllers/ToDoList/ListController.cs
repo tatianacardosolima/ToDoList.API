@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ToDoList.Aggregator.Abstractions;
 using ToDoList.Aggregator.Model;
-using ToDoList.Aggregator.Services;
+using ToDoList.Aggregator.Services.TodoList;
 
 namespace ToDoList.Aggregator.Controllers.ToDoList
 {

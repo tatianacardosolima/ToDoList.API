@@ -1,8 +1,9 @@
 using Polly.Extensions.Http;
 using Polly;
-using ToDoList.Aggregator.Services;
 using Serilog;
 using Commom.Logging;
+using ToDoList.Aggregator.Services.TodoList;
+using ToDoList.Aggregator.Services.GrpcUser;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,15 @@ builder.Services.AddHttpClient<IChecklistService, ChecklistService>(c =>
                 c.BaseAddress = new Uri(configuration["ApiSettings:TodoList"]))
                 .AddPolicyHandler(GetRetryPolicy())
                 .AddPolicyHandler(GetCircuitBreakerPolicy());
+
+
+// Grpc Configuration
+builder.Services.AddGrpcClient<Grpc.Users.API.User.UserClient>
+    (o => o.Address = new Uri(configuration["ApiSettings:GrpcUser"]))
+    .AddPolicyHandler(GetRetryPolicy())
+    .AddPolicyHandler(GetCircuitBreakerPolicy()); 
+
+builder.Services.AddScoped<GrpcUserService>();
 
 var app = builder.Build();
 

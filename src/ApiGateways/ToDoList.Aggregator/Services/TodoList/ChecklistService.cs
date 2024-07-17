@@ -2,9 +2,9 @@
 using ToDoList.Aggregator.Interfaces;
 using ToDoList.Aggregator.Model;
 
-namespace ToDoList.Aggregator.Services
+namespace ToDoList.Aggregator.Services.TodoList
 {
-    public interface IChecklistService: IToDoListService<ChecklistModel, UpdChecklistModel>
+    public interface IChecklistService : IToDoListService<ChecklistModel, UpdChecklistModel>
     {
 
     }
