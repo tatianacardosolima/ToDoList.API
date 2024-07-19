@@ -1,7 +1,7 @@
 ﻿using Authenticate.API.Repositories;
 using Common.Password;
-using IdentityServer4.Models;
-using IdentityServer4.Validation;
+using Duende.IdentityServer.Models;
+using Duende.IdentityServer.Validation;
 using System.Security.Claims;
 
 namespace Authenticate.API.IdentityCustom
@@ -45,7 +45,7 @@ namespace Authenticate.API.IdentityCustom
                        claims: new Claim[]
                        {
 
-                        new Claim("sid", user.Id.ToString()),
+                        new Claim("sub", user.Id.ToString()),
                         new Claim("name", user.Name),
                         new Claim("email", user.Email),
 

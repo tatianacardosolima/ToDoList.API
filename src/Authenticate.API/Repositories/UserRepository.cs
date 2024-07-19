@@ -7,6 +7,7 @@ namespace Authenticate.API.Repositories
     public interface IUserRepository
     {
         Task<UserQuery> GetByEmailAsync(string email);
+        Task<UserQuery> GetByIdAsync(Guid id);
     }
     public class UserRepository : IUserRepository
     {
@@ -22,6 +23,14 @@ namespace Authenticate.API.Repositories
             var commandSql = "Select Id, name, email, password from Users where email = @email";
             var user = await _connection.QuerySingleOrDefaultAsync<UserQuery>(commandSql, 
                         new { email = email});
+            return user;
+        }
+
+        public async Task<UserQuery> GetByIdAsync(Guid id)
+        {
+            var commandSql = "Select Id, name, email, password from Users where id = @id";
+            var user = await _connection.QuerySingleOrDefaultAsync<UserQuery>(commandSql,
+                        new { id = id});
             return user;
         }
     }

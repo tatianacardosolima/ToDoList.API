@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ToDoList.Aggregator.Interfaces;
 using ToDoList.Shared.Interfaces;
 
@@ -19,23 +20,23 @@ namespace ToDoList.Aggregator.Abstractions
             _uri = uri;
         }
         
-        [HttpPost/*, Authorize*/]
+        [HttpPost, Authorize]
         public virtual async Task<IActionResult> PostAsync(TPostRequest request)
         {
             return Ok(await _service.PostAsync(request, _uri));
         }
-        [HttpPut/*, Authorize*/]
+        [HttpPut, Authorize]
         public virtual async Task<IActionResult> PutAsync(TPutRequest request)
         {
             return Ok(await _service.PutAsync(request, _uri));
         }
 
-        [HttpGet("{id}")/*, Authorize*/]
+        [HttpGet("{id}"), Authorize]
         public virtual async Task<IActionResult> GetByIdAsync(Guid id)
         {
             return Ok(await _service.GetByIdAsync(id, _uri));
         }
-        [HttpDelete("{id}")/*, Authorize*/]
+        [HttpDelete("{id}"), Authorize]
         public virtual async Task<IActionResult> DeleteByID(Guid id)
         {
             return Ok(await _service.DeleteByIdAsync(id, _uri));

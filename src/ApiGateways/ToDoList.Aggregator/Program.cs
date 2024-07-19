@@ -4,8 +4,11 @@ using Serilog;
 using Commom.Logging;
 using ToDoList.Aggregator.Services.TodoList;
 using ToDoList.Aggregator.Services.GrpcUser;
+using ToDoList.Shared.Interfaces;
+using IdentityModel;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 // Add services to the container.
 
@@ -14,9 +17,28 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddAuthentication("Bearer")
+             .AddOAuth2Introspection("Bearer",
+               options =>
+               {
+                   options.Authority = "https://localhost:7157"; // URL do seu IdentityServer
+                   options.ClientId = "todolist.api";
+                   options.ClientSecret = "puI5bxvajrIAfZzndATMxqvmJy6vy0ve";
+               });
+
+//builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ApiScope", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("scope", "todolist.api");
+    });
+});
+
 builder.Host.UseSerilog(SeriLogger.Configure);
 
-var configuration = builder.Configuration;
 builder.Services.AddHttpClient<IListService, ListService>(c =>
                 c.BaseAddress = new Uri(configuration["ApiSettings:TodoList"]))                
                 .AddPolicyHandler(GetRetryPolicy())
@@ -52,10 +74,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
 
+app.MapControllers()
+    .RequireAuthorization("ApiScope");
 app.Run();
 
 public partial class Program

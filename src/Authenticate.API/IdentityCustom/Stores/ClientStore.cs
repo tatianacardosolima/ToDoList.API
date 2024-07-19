@@ -1,9 +1,9 @@
 ﻿using Authenticate.API.Setup;
-using IdentityServer4.Models;
-using IdentityServer4.Stores;
-using IdentityServer4;
-using Microsoft.Extensions.Options;
+using Duende.IdentityServer;
+using Duende.IdentityServer.Models;
+using Duende.IdentityServer.Stores;
 using IdentityModel;
+using Microsoft.Extensions.Options;
 
 namespace Authenticate.API.IdentityCustom.Stores
 {
@@ -23,8 +23,8 @@ namespace Authenticate.API.IdentityCustom.Stores
         {
             return Task.FromResult(new Client
             {
-                ClientId = _clientStoreSettings.AllowedScopes,
-                ClientName = "Plataforma To DO List",
+                ClientId = "todolist.api",
+                ClientName = "Plataforma To Do List",
 
                 // No interactive user, use the clientid/secret for authentication
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
@@ -36,7 +36,7 @@ namespace Authenticate.API.IdentityCustom.Stores
                 RequireConsent = _clientStoreSettings.RequireConsent,
                 AllowedScopes =
                 {
-                    _clientStoreSettings.AllowedScopes,
+                    _clientStoreSettings.AllowedScopes,"todolist.api", "introspection",
                     IdentityServerConstants.StandardScopes.OfflineAccess
                 },
                 
