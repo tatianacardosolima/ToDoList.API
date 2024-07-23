@@ -12,8 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddGrpc();
 var configuration = builder.Configuration;
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDbConnection, SqlConnection>((connection) => new SqlConnection(configuration["ConnectionStrings:SqlServer"]));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 
 var autoMapperConfig = new MapperConfiguration(cfg =>
 {

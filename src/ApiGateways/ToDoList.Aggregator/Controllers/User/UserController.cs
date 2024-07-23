@@ -1,4 +1,5 @@
 ﻿using Grpc.Users.API;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ToDoList.Aggregator.Interfaces;
 using ToDoList.Aggregator.Services.GrpcUser;
@@ -24,7 +25,7 @@ namespace ToDoList.Aggregator.Controllers.User
             return Ok(_service.Save(request));
         }       
 
-        [HttpGet("{id}")/*, Authorize*/]
+        [HttpGet("{id}"), Authorize]
         public IActionResult GetByIdAsync(Guid id)
         {
             return Ok(_service.GetById(new GetUserByIdRequest() { Id = id.ToString() }));

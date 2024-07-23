@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Password;
 using Grpc.Core;
 using Grpc.Users.API.Entities;
 using Grpc.Users.API.Repositories;
@@ -20,6 +21,9 @@ namespace Grpc.Users.API.Services
 
         public override async Task<SaveUserResponse> Save(SaveUserRequest request, ServerCallContext context)
         {
+            var passwordService = new PasswordService();
+            request.Password = passwordService.HashPassword(request.Email, request.Password);
+
             var entity = _mapper.Map<UserEntity>(request);
             //entity.Id = Guid.NewGuid();
             //entity.CreateAt = DateTime.Now;

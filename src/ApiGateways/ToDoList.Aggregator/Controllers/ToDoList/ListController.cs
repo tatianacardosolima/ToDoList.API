@@ -7,12 +7,12 @@ namespace ToDoList.Aggregator.Controllers.ToDoList
 {
     [ApiController]
     [Route("to-do-list/lists")]
-    public class LististController : TodoListBaseController<TaskModel, UpdTaskModel>
+    public class LististController : TodoListBaseController<ListModel, UpdListModel>
     {
 
         private readonly ILogger<TasksController> _logger;
 
-        public LististController(ILogger<TasksController> logger, ITaskService service): base(service,"/lists")
+        public LististController(ILogger<TasksController> logger, IListService service): base(service,"/lists")
         {
             _logger = logger;
         }
