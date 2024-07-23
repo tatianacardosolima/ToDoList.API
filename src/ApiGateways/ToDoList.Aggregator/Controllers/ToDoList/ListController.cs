@@ -12,7 +12,7 @@ namespace ToDoList.Aggregator.Controllers.ToDoList
 
         private readonly ILogger<TasksController> _logger;
 
-        public LististController(ILogger<TasksController> logger, ITaskService service): base(service,"/lists")
+        public LististController(ILogger<TasksController> logger, IListService service): base(service,"/lists")
         {
             _logger = logger;
         }
