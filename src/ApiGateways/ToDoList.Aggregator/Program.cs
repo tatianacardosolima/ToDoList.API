@@ -6,6 +6,7 @@ using ToDoList.Aggregator.Services.TodoList;
 using ToDoList.Aggregator.Services.GrpcUser;
 using ToDoList.Shared.Interfaces;
 using IdentityModel;
+using Common.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -16,6 +17,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<LoggingDelegatingHandler>();
 
 
 builder.Services.AddAuthentication("Bearer")
@@ -40,17 +42,20 @@ builder.Services.AddAuthorization(options =>
 builder.Host.UseSerilog(SeriLogger.Configure);
 
 builder.Services.AddHttpClient<IListService, ListService>(c =>
-                c.BaseAddress = new Uri(configuration["ApiSettings:TodoList"]))                
+                c.BaseAddress = new Uri(configuration["ApiSettings:TodoList"]))
+                .AddHttpMessageHandler<LoggingDelegatingHandler>()
                 .AddPolicyHandler(GetRetryPolicy())
                 .AddPolicyHandler(GetCircuitBreakerPolicy());
 
 builder.Services.AddHttpClient<ITaskService, TaskService>(c =>
                 c.BaseAddress = new Uri(configuration["ApiSettings:TodoList"]))
+                .AddHttpMessageHandler<LoggingDelegatingHandler>()
                 .AddPolicyHandler(GetRetryPolicy())
                 .AddPolicyHandler(GetCircuitBreakerPolicy());
 
 builder.Services.AddHttpClient<IChecklistService, ChecklistService>(c =>
                 c.BaseAddress = new Uri(configuration["ApiSettings:TodoList"]))
+                .AddHttpMessageHandler<LoggingDelegatingHandler>()
                 .AddPolicyHandler(GetRetryPolicy())
                 .AddPolicyHandler(GetCircuitBreakerPolicy());
 
@@ -58,6 +63,7 @@ builder.Services.AddHttpClient<IChecklistService, ChecklistService>(c =>
 // Grpc Configuration
 builder.Services.AddGrpcClient<Grpc.Users.API.User.UserClient>
     (o => o.Address = new Uri(configuration["ApiSettings:GrpcUser"]))
+    .AddHttpMessageHandler<LoggingDelegatingHandler>()
     .AddPolicyHandler(GetRetryPolicy())
     .AddPolicyHandler(GetCircuitBreakerPolicy()); 
 
